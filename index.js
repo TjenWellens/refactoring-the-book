@@ -2,7 +2,7 @@ export default function statement(invoice, plays) {
 	const statementData = {};
 	statementData.customer = invoice.customer;
 	statementData.performances = invoice.performances.map(enrichPerformance);
-	return renderPlainText(statementData, plays);
+	return renderPlainText(statementData);
 
 	function enrichPerformance(aPerformance) {
 		const result = Object.assign({}, aPerformance);
@@ -15,7 +15,7 @@ export default function statement(invoice, plays) {
 	}
 }
 
-function renderPlainText(data, plays) {
+function renderPlainText(data) {
 	let result = `Statement for ${data.customer}\n`;
 	for (let perf of data.performances) {
 		result += `  ${perf.play.name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
