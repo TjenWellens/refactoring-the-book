@@ -4,6 +4,7 @@ function createStatementData(invoice, plays) {
 	statementData.performances = invoice.performances.map(enrichPerformance);
 	statementData.totalAmount = totalAmount(statementData);
 	statementData.totalVolumeCredits = totalVolumeCredits(statementData);
+	return statementData;
 
 	function enrichPerformance(aPerformance) {
 		const result = Object.assign({}, aPerformance);
@@ -55,8 +56,6 @@ function createStatementData(invoice, plays) {
 		return data.performances
 			.reduce((total, p) => total + p.volumeCredits, 0);
 	}
-
-	return statementData;
 }
 
 export default function statement(invoice, plays) {
