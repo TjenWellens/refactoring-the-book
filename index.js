@@ -8,10 +8,6 @@ export default function statement(invoice, plays) {
 			minimumFractionDigits: 2
 		}).format;
 
-	function playFor(perf) {
-		return plays[perf.playID];
-	}
-
 	for (let perf of invoice.performances) {
 		let thisAmount = amountFor(perf)
 
@@ -27,6 +23,10 @@ export default function statement(invoice, plays) {
 	result += `Amount owed is ${format(totalAmount / 100)}\n`;
 	result += `You earned ${volumeCredits} credits\n`;
 	return result;
+
+	function playFor(perf) {
+		return plays[perf.playID];
+	}
 
 	function amountFor(aPerformance) {
 		let result = 0;
