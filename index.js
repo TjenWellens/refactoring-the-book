@@ -1,13 +1,10 @@
 export default function statement(invoice, plays) {
 	let result = `Statement for ${invoice.customer}\n`;
-
 	for (let perf of invoice.performances) {
-		// print line for this order
 		result += `  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
 	}
-
 	result += `Amount owed is ${usd(totalAmount())}\n`;
-	result += `You earned ${(totalVolumeCredits())} credits\n`;
+	result += `You earned ${totalVolumeCredits()} credits\n`;
 	return result;
 
 	function totalAmount() {
@@ -21,7 +18,7 @@ export default function statement(invoice, plays) {
 	function totalVolumeCredits() {
 		let result = 0;
 		for (let perf of invoice.performances) {
-			result += volumeCreditsFor(perf, playFor);
+			result += volumeCreditsFor(perf);
 		}
 		return result;
 	}
@@ -31,25 +28,22 @@ export default function statement(invoice, plays) {
 			{
 				style: "currency", currency: "USD",
 				minimumFractionDigits: 2
-			}).format(aNumber/100);
+			}).format(aNumber / 100);
 	}
 
-	function volumeCreditsFor(aPerformance, playFor) {
-		let result = 0
-		// add volume credits
+	function volumeCreditsFor(aPerformance) {
+		let result = 0;
 		result += Math.max(aPerformance.audience - 30, 0);
-		// add extra credit for every ten comedy attendees
 		if ("comedy" === playFor(aPerformance).type) result += Math.floor(aPerformance.audience / 5);
 		return result;
 	}
 
-	function playFor(perf) {
-		return plays[perf.playID];
+	function playFor(aPerformance) {
+		return plays[aPerformance.playID];
 	}
 
 	function amountFor(aPerformance) {
 		let result = 0;
-
 		switch (playFor(aPerformance).type) {
 			case "tragedy":
 				result = 40000;
@@ -67,6 +61,6 @@ export default function statement(invoice, plays) {
 			default:
 				throw new Error(`unknown type: ${playFor(aPerformance).type}`);
 		}
-		return result
+		return result;
 	}
 }
