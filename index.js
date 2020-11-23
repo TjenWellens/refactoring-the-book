@@ -31,9 +31,7 @@ export default function statement(invoice, plays) {
 		return totalAmount;
 	}
 
-	let totalAmount = appleSauce();
-
-	result += `Amount owed is ${usd(totalAmount)}\n`;
+	result += `Amount owed is ${usd(appleSauce())}\n`;
 	result += `You earned ${(totalVolumeCredits())} credits\n`;
 	return result;
 
