@@ -60,8 +60,7 @@ function createStatementData(invoice, plays) {
 }
 
 export default function statement(invoice, plays) {
-	const statementData = createStatementData(invoice, plays);
-	return renderPlainText(statementData);
+	return renderPlainText(createStatementData(invoice, plays));
 }
 
 function renderPlainText(data) {
