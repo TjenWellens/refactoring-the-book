@@ -21,11 +21,13 @@ export default function statement(invoice, plays) {
 	let result = `Statement for ${invoice.customer}\n`;
 
 	for (let perf of invoice.performances) {
-		volumeCredits += volumeCreditsFor(perf, playFor);
 
 		// print line for this order
 		result += `  ${playFor(perf).name}: ${usd(amountFor(perf))} (${perf.audience} seats)\n`;
 		totalAmount += amountFor(perf);
+	}
+	for (let perf of invoice.performances) {
+		volumeCredits += volumeCreditsFor(perf, playFor);
 	}
 	result += `Amount owed is ${usd(totalAmount)}\n`;
 	result += `You earned ${volumeCredits} credits\n`;
