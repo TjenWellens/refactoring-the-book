@@ -36,11 +36,11 @@ export default function statement(invoice, plays) {
 	}
 
 	function totalVolumeCredits() {
-		let volumeCredits = 0;
+		let result = 0;
 		for (let perf of invoice.performances) {
-			volumeCredits += volumeCreditsFor(perf, playFor);
+			result += volumeCreditsFor(perf, playFor);
 		}
-		return volumeCredits;
+		return result;
 	}
 
 	function playFor(perf) {
